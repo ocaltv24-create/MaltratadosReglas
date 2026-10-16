@@ -10,7 +10,7 @@ aside{position:fixed;inset:0 auto 0 0;width:270px;padding:24px 16px;background:#
 .logo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 aside a{display:block;padding:8px 12px;border-radius:8px;color:var(--mut);text-decoration:none;font-size:14px}
 aside a:hover{background:#4cc9f014;color:var(--ac)}
-main{margin-left:270px;max-width:920px;padding:48px 32px 80px}
+body{padding-left:270px}main{margin:0 auto;max-width:1240px;padding:36px 32px 80px}
 .hero{padding:36px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(135deg,#4cc9f022,#16191e 65%);margin-bottom:30px}
 .hero h1{margin:0 0 10px;font-size:clamp(28px,5vw,46px);letter-spacing:-.02em;line-height:1.1}.hero h1 span{color:var(--ac)}.hero p{margin:0;color:var(--mut)}
 section{margin-bottom:26px;padding:28px;background:var(--card);border:1px solid var(--line);border-radius:18px}
@@ -26,8 +26,14 @@ footer{text-align:center;color:var(--mut);font-size:13px;margin-top:36px}
 section{background:rgba(22,25,30,.88)}#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}main{position:relative;z-index:1}aside{z-index:2}
 .blogo{display:block;width:100%;max-width:220px;margin:0 auto 22px}.hero{display:flex;align-items:center;gap:28px;flex-wrap:wrap}.ht{flex:1;min-width:240px}.hlogo{width:270px;max-width:100%;margin-left:auto;filter:drop-shadow(0 8px 30px #4cc9f044)}
 @media(max-width:860px){.blogo{width:90px;margin:0 12px 0 0}.hlogo{margin:0 auto}}
+section{columns:420px 2;column-gap:44px;padding:30px 34px}section>h2{column-span:all;margin-bottom:14px}
+section>h3:first-of-type,section>p:first-of-type{margin-top:0}
+.note,li,dt,dd,section>p{break-inside:avoid}h3,dt{break-after:avoid}h3{margin-top:18px}
+aside a.on{background:#4cc9f014;color:var(--ac)}
+#q{width:100%;margin:0 0 14px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#12151a;color:var(--tx);font:inherit;font-size:14px;outline:none}#q:focus{border-color:var(--ac)}
+@media(max-width:860px){body{padding-left:0}aside{position:sticky;top:0;z-index:5;align-items:center}#q{width:170px;flex:none;margin:0 8px 0 0}section{columns:auto;padding:20px 18px}main{padding:18px 12px 60px}.hero{padding:22px}}
 </style></head><body><canvas id="fx"></canvas>
-<aside><img class="blogo" src="logo.png" alt="Maltratados RP"><nav></nav></aside>
+<aside><img class="blogo" src="logo.png" alt="Maltratados RP"><input id="q" type="search" placeholder="Buscar una regla..." autocomplete="off"><nav></nav></aside>
 <main>
 <div class="hero"><div class="ht"><h1>Normativas de <span>Maltratados RP</span></h1><p>Todas las reglas del servidor en un solo lugar. Léelas completas: el desconocimiento no exime de sanción. La administración puede modificar, ampliar o quitar normas en cualquier momento.</p></div><img class="hlogo" src="logo.png" alt=""></div>
 
@@ -179,4 +185,7 @@ function mk(t){return{x:Math.random()*w,y:t?-10:Math.random()*h,r:Math.random()*
 rs();addEventListener('resize',rs);const N=Math.round(Math.min(70,w/16));for(let i=0;i<N;i++)P.push(mk());
 (function f(){x.clearRect(0,0,w,h);for(const p of P){p.y+=p.v;p.s+=.01;p.x+=Math.sin(p.s)*.3;if(p.y>h+10)Object.assign(p,mk(1));
 const g=x.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);g.addColorStop(0,'rgba(76,201,240,'+p.a+')');g.addColorStop(1,'rgba(76,201,240,0)');x.fillStyle=g;x.beginPath();x.arc(p.x,p.y,p.r*6,0,7);x.fill();x.fillStyle='rgba(220,245,255,'+p.a+')';x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill()}requestAnimationFrame(f)})()})()</script>
+<script>(()=>{const q=document.getElementById('q'),S=[...document.querySelectorAll('section')],L=[...document.querySelectorAll('aside nav a')];
+q.addEventListener('input',()=>{const t=q.value.trim().toLowerCase();S.forEach((s,i)=>{const m=!t||s.textContent.toLowerCase().includes(t);s.style.display=m?'':'none';L[i].style.display=m?'':'none'})});
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)L.forEach(a=>a.classList.toggle('on',a.hash==='#'+x.target.id))}),{rootMargin:'-20% 0px -70% 0px'});S.forEach(s=>io.observe(s))})()</script>
 </body></html>
